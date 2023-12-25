@@ -1,0 +1,24 @@
+version: "3"
+
+tasks:
+  default:
+    cmds:
+      - task: build
+  build:
+    cmds:
+      - mkdir -p bin
+      - go build -o bin/vim-go ./cmd/vim-go
+    sources:
+      - ./cmd/vim-go/*.go
+    generates:
+      - bin/vim-go
+  run:
+    deps:
+      - build
+    cmds:
+      - ./bin/vim-go
+  clean:
+    cmds:
+      - rm bin/vim-go
+    status:
+      - test ! -f bin/vim-go
